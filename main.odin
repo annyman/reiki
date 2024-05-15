@@ -2,8 +2,8 @@ package game
 
 import rl "vendor:raylib"
 
-scrHeight :: 720
-scrWidth :: 1280
+scrHeight :: 600
+scrWidth :: 600
 pixelGrids :: 180
 
 main :: proc() {
