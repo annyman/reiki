@@ -4,7 +4,8 @@ import rl "vendor:raylib"
 import "../lib"
 
 Entity :: struct {
-    pos: rl.Vector2,
-    vel: rl.Vector2,
-    size: rl.Vector2,
+    pos, vel, size: rl.Vector2,
 }
+
+update :: proc {update_player}
+draw :: proc {draw_player}

@@ -4,30 +4,35 @@ import rl "vendor:raylib"
 import "entity"
 import "lib"
 
-scrHeight :: 600
-scrWidth :: 600
+scrHeight :: 700
+scrWidth :: 700
 pixelGrids :: 180
 
 main :: proc() {
     rl.InitWindow(scrWidth, scrHeight, "DOT shoot em up")
     rl.SetWindowState({.VSYNC_HINT}) // Enable VSYNC
+    rl.SetExitKey(.Q)
 
     plr := entity.Player {
-        { {0, 0}, {0, 0}, {48, 58} },
+        { {100, 100}, {0, 0}, {48, 58} },
         0.0,
         rl.LoadTexture("assets/img/player_1.png"),
-        {0, 0, 0, 0}, {0, 0, 0, 0}
+        {0, 0, 48, 58}, {0, 0, 48, 58}
     }
 
     for !rl.WindowShouldClose() {
+        dt := rl.GetFrameTime()
+
         rl.BeginDrawing()
         rl.ClearBackground(rl.DARKGRAY)
 
-        if rl.IsKeyDown(.Q) {
-            break // Close window
-        }
+        entity.update(dt, &plr)
+
+        entity.draw(&plr)
 
         rl.DrawFPS(10, 10)
         rl.EndDrawing()
     }
+
+    rl.CloseWindow()
 }

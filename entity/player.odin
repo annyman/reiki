@@ -1,31 +1,29 @@
 package entity
 
 import rl "vendor:raylib"
+import "core:fmt"
 import "../lib"
 
 Player :: struct {
     using entity: Entity,
 
-    look: f32,
+    look: rl.Vector2,
     texture: rl.Texture2D,
-    source: rl.Rectangle,
-    dest: rl.Rectangle,
+    source, dest: rl.Rectangle,
 }
 
 update_player :: proc (dt: f32, self: ^Player) {
-    switch rl.GetKeyPressed() {
-        case .A: self.vel.x -= 400
-        case .D: self.vel.x += 400
-        case .W: self.vel.y -= 400
-        case .S: self.vel.y += 400
-        case : self.vel = {0, 0}
-    }
+    
+//    self.vel = 300 * lib.norm(self.vel)
+//    self.pos += self.vel * dt
 
-    self.pos += self.vel * dt
+    self.look = rl.GetMousePosition() - self.pos
 
-    self.look = lib.dir(self.pos - rl.GetMousePosition())
+    self.dest.x = self.pos.x
+    self.dest.y = self.pos.y
 }
 
 draw_player :: proc (self: ^Player) {
-    rl.DrawTextureEx(self.texture, self.pos, self.look, 0, rl.WHITE)
+    rl.DrawTexturePro(self.texture, self.source, self.dest, {24, 29}, 90 + lib.toDeg(lib.dir(self.look)), rl.WHITE)
+    fmt.println(lib.toDeg(lib.dir(self.look)))
 }
