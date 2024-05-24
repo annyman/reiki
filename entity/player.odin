@@ -24,6 +24,5 @@ update_player :: proc (dt: f32, self: ^Player) {
 }
 
 draw_player :: proc (self: ^Player) {
-    rl.DrawTexturePro(self.texture, self.source, self.dest, {24, 29}, 90 + lib.toDeg(lib.dir(self.look)), rl.WHITE)
-    fmt.println(lib.toDeg(lib.dir(self.look)))
+    rl.DrawTexturePro(self.texture, self.source, self.dest, {24, 29}, 90 + lib.degrees(lib.dir(self.look)), rl.WHITE)
 }

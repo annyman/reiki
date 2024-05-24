@@ -14,7 +14,7 @@ main :: proc() {
     rl.SetExitKey(.Q)
 
     plr := entity.Player {
-        { {100, 100}, {0, 0}, {48, 58} },
+        { {400, 400}, {0, 0}, {48, 58} },
         0.0,
         rl.LoadTexture("assets/img/player_1.png"),
         {0, 0, 48, 58}, {0, 0, 48, 58}

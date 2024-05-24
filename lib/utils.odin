@@ -17,17 +17,14 @@ norm :: proc(v : rl.Vector2) -> rl.Vector2 {
     }
 }
 
-toDeg :: proc(rad: f32) -> f32 {
+degrees :: proc(rad: f32) -> f32 {
     return rad * 57.296 // 180/pi value
 }
 
 dir :: proc(v: rl.Vector2) -> f32 {
-    ang := math.atan(v.y / v.x)
-    if ang > 1.57 {
-        return ang
-    } else if ang < -1.57 {
-        return ang
-    } else {
-        return ang
-    }
+    ang := math.atan2(v.y, v.x)
+
+    if ang < 0 {
+        ang += 6.28
+    } return ang
 }
