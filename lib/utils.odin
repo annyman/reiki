@@ -28,3 +28,7 @@ dir :: proc(v: rl.Vector2) -> f32 {
         ang += 6.28
     } return ang
 }
+
+angToCoord :: proc(dir: f32, mag: f32) -> rl.Vector2 {
+    return rl.Vector2 { math.cos(dir) * mag, math.sin(dir) * mag}
+}
