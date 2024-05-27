@@ -1,8 +1,10 @@
 TODO:
     player movement
     shoot towards raycast
+    player animation &| animation system
 Done:
     basic setup
     looksmaxxing
     debug mode
 Wait:
+    creating new raycast every iteration

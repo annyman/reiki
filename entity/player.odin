@@ -7,8 +7,8 @@ import "../lib"
 Player :: struct {
     using entity: Entity,
 
-    look: lib.Ray,
-    texture: rl.Texture2D,
+    look: lib.Ray, // raycast mouse
+    texture: rl.Texture2D, // wrap this later in animation
     source, dest: rl.Rectangle,
 }
 
