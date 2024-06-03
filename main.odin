@@ -15,10 +15,10 @@ main :: proc() {
     debug: bool = false
 
     plr := entity.Player {
-        { {400, 400}, {0, 0}, {48, 58} },
+        { {400, 400}, {0, 0}, {32, 32} },
         lib.Ray { {0, 0}, 0, 20, false },
-        rl.LoadTexture("assets/img/player_1.png"),
-        {0, 0, 48, 58}, {0, 0, 48, 58}
+        rl.LoadTexture("assets/img/player/idle.png"),
+        {0, 0, 32, 32}, {0, 0, 32, 32}
     }
 
     for !rl.WindowShouldClose() {

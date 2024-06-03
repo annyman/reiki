@@ -4,7 +4,7 @@ import rl "vendor:raylib"
 import "core:math"
 
 mag :: proc(v: rl.Vector2) -> f32 {
-    return math.sqrt(v.x*v.x + v.y*v.y)
+    return math.sqrt((v.x*v.x) + (v.y*v.y))
 }
 
 norm :: proc(v : rl.Vector2) -> rl.Vector2 {
