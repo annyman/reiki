@@ -1,7 +1,7 @@
 # Bunny
 ## casual game project
 ---
-shoot bunnies
+SHOOT SPACESHIPS
 
-made by: annyman
-made with: odin & raylib
+- made by: annyman
+- made with: odin & raylib
