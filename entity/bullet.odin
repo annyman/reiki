@@ -6,5 +6,4 @@ import "../lib"
 
 Bullet :: struct {
     using entity: Entity,
-    
 }
