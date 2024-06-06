@@ -1,6 +1,5 @@
 # Bunny
 ## casual game project
----
 SHOOT SPACESHIPS
 
 - made by: annyman
