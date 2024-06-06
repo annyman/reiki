@@ -1,4 +1,4 @@
-# Bunny
+# REiKI
 ## casual game project
 SHOOT SPACESHIPS
 
