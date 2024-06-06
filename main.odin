@@ -4,8 +4,8 @@ import rl "vendor:raylib"
 import "entity"
 import "lib"
 
-scrHeight :: 700
-scrWidth :: 700
+scrHeight :: 600
+scrWidth :: 600
 pixelGrids :: 180
 
 main :: proc() {
@@ -15,13 +15,14 @@ main :: proc() {
     debug: bool = false
 
     plr := entity.Player {
-        { {400, 400}, {0, 0}, {32, 32} },
+        { {400, 400}, {0, 0}, {32, 32},
+        rl.LoadTexture("assets/img/player/idle.png"), {0, 0, 32, 32}, {0, 0, 32, 32} }, // entity declaration
         lib.Ray { {0, 0}, 0, 20, false },
-        rl.LoadTexture("assets/img/player/idle.png"),
-        {0, 0, 32, 32}, {0, 0, 32, 32}
+        {},
     }
 
     for !rl.WindowShouldClose() {
+
         if rl.IsKeyPressed(.T) {
             debug = !debug
         }

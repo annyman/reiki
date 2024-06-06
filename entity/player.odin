@@ -6,19 +6,24 @@ import "../lib"
 
 Player :: struct {
     using entity: Entity,
-
     look: lib.Ray, // raycast mouse
-    texture: rl.Texture2D, // wrap this later in animation
-    source, dest: rl.Rectangle,
+    ammo: [dynamic]Bullet,
 }
 
 update_player :: proc (dt: f32, self: ^Player) {
-    self.look = {self.pos, lib.dir(rl.GetMousePosition() - self.pos), 35, false}
+    self.look = {self.pos, lib.dir(rl.GetMousePosition() - self.pos), self.look.len, false}
 
     lib.attachRay(&self.look, self.pos)
 
-    //if rl.IsKeyPressed(.W) { self.vel = 1 * lib.angToCoord(self.look.poynt, self.look.len) }
     move(self)
+
+    if rl.IsMouseButtonPressed(.LEFT) {
+        fire_bullet(self)
+    }
+
+    for &bullet in self.ammo {
+        update(dt, &bullet)
+    }
 
     self.dest.x = self.pos.x
     self.dest.y = self.pos.y
@@ -27,7 +32,13 @@ update_player :: proc (dt: f32, self: ^Player) {
 }
 
 draw_player :: proc (self: ^Player, debug: bool) {
+
+    for &bullet in self.ammo {
+        draw(&bullet, debug)
+    }
+
     rl.DrawTexturePro(self.texture, self.source, self.dest, self.size/2, 90 + lib.degrees(self.look.poynt), rl.WHITE)
+
     if debug == true {
         lib.debugRay(&self.look)
     }
@@ -43,4 +54,18 @@ move :: proc(self: ^Player) {
             self.vel = 0
     }
 
+}
+
+fire_bullet :: proc(self: ^Player) {
+
+    append(
+        &self.ammo,
+        Bullet {
+            { self.pos, lib.angToCoord(self.look.poynt, 300), {32, 32},
+            rl.LoadTexture("assets/img/player/lvl3.png"),
+            {0, 0, 32, 32}, {self.pos.x, self.pos.y, 32, 32} },
+            self.look.poynt,
+            lib.Circle { self.pos, 4.0 }
+        }
+    )
 }

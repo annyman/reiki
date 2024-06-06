@@ -1,7 +1,6 @@
 TODO:
-    player movement
-    shoot towards raycast
     player animation &| animation system
+    memory management for bullets (and enemies (object pooling??))
 Done:
     basic setup
     looksmaxxing

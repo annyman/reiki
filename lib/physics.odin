@@ -17,3 +17,10 @@ attachRay :: proc(self: ^Ray, origin: rl.Vector2) {
 debugRay :: proc(self: ^Ray) {
     rl.DrawLineV(self.origin, self.origin + angToCoord(self.poynt, self.len), rl.GREEN)
 }
+
+// ---
+
+Circle :: struct {
+    origin: rl.Vector2,
+    radius: f32,
+}
