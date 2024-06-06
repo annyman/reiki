@@ -1,4 +1,4 @@
-# RE1KI
+# REiKI
 ## casual game project
 SHOOT SPACESHIPS
 
