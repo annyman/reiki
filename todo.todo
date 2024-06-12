@@ -1,9 +1,32 @@
 TODO:
     player animation &| animation system
     memory management for bullets (and enemies (object pooling??))
+    particle system && shaders
+    parallax background
+    goofy camera
+    enemy waves
+    gui
 Done:
     basic setup
     looksmaxxing
     debug mode
 Wait:
     creating new raycast every iteration
+
+    b: Bullet = {
+            {
+                self.pos, lib.angToCoord(self.look.poynt, 30), {32, 32},
+                {{
+                    rl.LoadTexture("assets/img/player/lvl3.png"),
+                    32,
+                    4,
+                    0,
+                    lib.Timer {0.0, 0.1},
+                    true,
+                }},
+                {0, 0, 32, 32}, {self.pos.x, self.pos.y, 32, 32}
+            },
+            self.look.poynt,
+            lib.Circle { self.pos, 4.0 },
+            false,
+        }

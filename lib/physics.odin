@@ -10,11 +10,11 @@ Ray :: struct {
     collide: bool,
 }
 
-attachRay :: proc(self: ^Ray, origin: rl.Vector2) {
+attach_ray :: proc(self: ^Ray, origin: rl.Vector2) {
     self.origin = origin
 }
 
-debugRay :: proc(self: ^Ray) {
+debug_ray :: proc(self: ^Ray) {
     rl.DrawLineV(self.origin, self.origin + angToCoord(self.poynt, self.len), rl.GREEN)
 }
 

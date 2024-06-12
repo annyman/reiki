@@ -4,29 +4,38 @@ import rl "vendor:raylib"
 import "core:fmt"
 import "../lib"
 
+player_states :: enum { Idle, Death, Ascend } // TODO: animation system
+
 Player :: struct {
     using entity: Entity,
     look: lib.Ray, // raycast mouse
-    ammo: [dynamic]Bullet,
+    ammo: [200]Bullet, // TODO: make object pooling quesiton mark ?
+    state: player_states,
+}
+
+load_player :: proc(self: ^Player) {
+    self.look = { self.pos, 0.0, 20, false }
+    gen_bullet(self)
 }
 
 update_player :: proc (dt: f32, self: ^Player) {
-    self.look = {self.pos, lib.dir(rl.GetMousePosition() - self.pos), self.look.len, false}
-
-    lib.attachRay(&self.look, self.pos)
+    self.look.poynt = lib.dir(rl.GetMousePosition() - self.pos)
+    lib.attach_ray(&self.look, self.pos)
 
     move(self)
+    lib.play(dt, &self.reel[self.state])
 
     if rl.IsMouseButtonPressed(.LEFT) {
         fire_bullet(self)
     }
 
     for &bullet in self.ammo {
-        update(dt, &bullet)
+        if bullet.lifetime != false { update(dt, &bullet) }
     }
 
     self.dest.x = self.pos.x
     self.dest.y = self.pos.y
+    self.source.x = f32(self.reel[self.state].cell * self.reel[self.state].current)
 
     self.pos += self.vel * dt
 }
@@ -34,13 +43,13 @@ update_player :: proc (dt: f32, self: ^Player) {
 draw_player :: proc (self: ^Player, debug: bool) {
 
     for &bullet in self.ammo {
-        draw(&bullet, debug)
+        if bullet.lifetime != false { draw(&bullet, debug) }
     }
 
-    rl.DrawTexturePro(self.texture, self.source, self.dest, self.size/2, 90 + lib.degrees(self.look.poynt), rl.WHITE)
+    rl.DrawTexturePro(self.reel[self.state].texture, self.source, self.dest, self.size/2, 90 + lib.degrees(self.look.poynt), rl.WHITE)
 
     if debug == true {
-        lib.debugRay(&self.look)
+        lib.debug_ray(&self.look)
     }
 }
 
@@ -58,14 +67,13 @@ move :: proc(self: ^Player) {
 
 fire_bullet :: proc(self: ^Player) {
 
-    append(
-        &self.ammo,
-        Bullet {
-            { self.pos, lib.angToCoord(self.look.poynt, 300), {32, 32},
-            rl.LoadTexture("assets/img/player/lvl3.png"),
-            {0, 0, 32, 32}, {self.pos.x, self.pos.y, 32, 32} },
-            self.look.poynt,
-            lib.Circle { self.pos, 4.0 }
+    for &b in self.ammo {
+        if b.lifetime != false {
+            b.pos = self.pos
+            b.vel = lib.angToCoord(self.look.poynt, 300)
+            b.dir = self.look.poynt
+            b.lifetime = true
+            break
         }
-    )
+    }
 }
